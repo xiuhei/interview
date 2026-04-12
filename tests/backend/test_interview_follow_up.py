@@ -6,7 +6,6 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "backend"))
 
 from app.models.enums import FollowUpType, InterviewStatus, InterviewStyle, QuestionCategory
-from app.core.exceptions import AppException
 from app.rag.service import RetrievalTrace
 from app.schemas.interview import InterviewReportRead, RetrievalEvidence
 from app.schemas.resume import ResumeSummary
@@ -81,13 +80,30 @@ class CapturePromptService:
         return {"draft_question": variables["draft"]["question"]}, False
 
 
+class FallbackOnlyPromptService:
+    def __init__(self) -> None:
+        self.calls: list[dict] = []
+
+    def run_json_prompt(self, name: str, variables: dict, fallback_result: dict | None = None):
+        self.calls.append(
+            {
+                "name": name,
+                "variables": variables,
+                "fallback_result": fallback_result,
+            }
+        )
+        if fallback_result is None:
+            raise RuntimeError("fallback_result is required for this stub")
+        return fallback_result, True
+
+
 class DummyRetrievalService:
     def __init__(self, evidence: list[RetrievalEvidence]) -> None:
         self.calls: list[dict] = []
         self.evidence = evidence
 
-    def retrieve_with_meta(self, query: str, role_code: str) -> RetrievalTrace:
-        self.calls.append({"query": query, "role_code": role_code})
+    def retrieve_with_meta(self, query: str, role_code: str, profile_name: str | None = None) -> RetrievalTrace:
+        self.calls.append({"query": query, "role_code": role_code, "profile_name": profile_name})
         return RetrievalTrace(evidence=self.evidence, backend="milvus")
 
 
@@ -164,13 +180,13 @@ def test_opening_question_uses_retrieval_context_and_prompt_output():
     assert retrieval_service.calls[0]["role_code"] == "cpp_backend"
     prompt_call = prompt_service.calls[0]
     assert prompt_call["name"] == "opening_question"
-    assert prompt_call["fallback_result"] is None
+    assert prompt_call["fallback_result"] == {"draft_question": "opening::cpp_backend"}
     assert prompt_call["variables"]["retrieval_context"][0]["source_type"] == "knowledge"
     assert prompt_call["variables"]["draft"]["question"] == "opening::cpp_backend"
     assert repo.created_questions[0]["evidence_summary"].startswith("backend=milvus")
 
 
-def test_opening_question_fails_fast_when_ai_prompt_fails():
+def test_opening_question_falls_back_to_seed_when_ai_prompt_fails():
     resume_summary = ResumeSummary(
         background="3 years of backend work.",
         project_experiences=["trading system"],
@@ -191,30 +207,22 @@ def test_opening_question_fails_fast_when_ai_prompt_fails():
         answers=[],
     )
 
-    class FailingPromptService:
-        def run_json_prompt(self, name: str, variables: dict, fallback_result: dict | None = None):
-            _ = name, variables, fallback_result
-            raise RuntimeError("llm boom")
-
     repo = DummyRepo(session)
     service = object.__new__(InterviewService)
     service.db = DummyDB()
     service.repo = repo
     service.seed_service = DummySeedService()
-    service.prompt_service = FailingPromptService()
+    service.prompt_service = FallbackOnlyPromptService()
     service.retrieval_service = DummyRetrievalService(build_evidence())
     service._get_session = lambda session_id: session
     service._asked_main_questions = lambda current_session: []
 
-    try:
-        service.get_first_question(1)
-    except AppException as exc:
-        assert exc.status_code == 502
-        assert "AI 首题生成失败" in exc.message
-    else:
-        raise AssertionError("expected AppException when opening question prompt fails")
+    question = service.get_first_question(1)
 
-    assert repo.created_questions == []
+    assert "opening" in question.question_text
+    assert "cpp_backend" in question.question_text
+    assert "opening" in repo.created_questions[0]["question_text"]
+    assert "cpp_backend" in repo.created_questions[0]["question_text"]
 
 
 def test_opening_question_sanitizes_outline_style_prompt_output():
@@ -391,6 +399,52 @@ def test_last_main_question_finishes_without_fixed_wrap_up():
     assert repo.created_questions == []
     assert retrieval_service.calls == []
     assert prompt_service.calls == []
+
+
+def test_follow_up_generation_falls_back_to_seed_question_when_prompt_fails():
+    evidence = build_evidence()
+    service, repo, _prompt_service, retrieval_service = build_service(evidence)
+    fallback_prompt_service = FallbackOnlyPromptService()
+    service.prompt_service = fallback_prompt_service
+    service._analyze_answer = lambda session, question, answer_text, items, retrieval_backend="unknown": {
+        "facts": ["covered the bottleneck and trade-offs"],
+        "missing_points": ["still missing concrete rollout details"],
+        "off_topic": False,
+        "credibility_risk": False,
+        "is_complete": False,
+        "fallback_used": False,
+        "confused": False,
+        "low_signal": False,
+    }
+    session = SimpleNamespace(
+        id=1,
+        current_turn=1,
+        max_questions=6,
+        status=None,
+        style=InterviewStyle.medium,
+        position=SimpleNamespace(code="cpp_backend", name="CPP Backend"),
+        questions=[],
+    )
+    question = SimpleNamespace(id=61, competency_code="system_design", question_text="Design a high-concurrency API.")
+    score_payload = {"text_scores": {"accuracy": 72, "completeness": 65, "credibility": 74}}
+
+    action, question_id = service._plan_next_question(
+        session,
+        question,
+        "我会从缓存和限流入手，但发布细节暂时没展开。",
+        score_payload,
+        evidence,
+        retrieval_backend="milvus",
+    )
+
+    assert action == FollowUpType.deepen.value
+    assert question_id == 1
+    assert "cpp_backend" in repo.created_questions[0]["question_text"]
+    assert "deepen" in repo.created_questions[0]["question_text"]
+    assert "system_design" in repo.created_questions[0]["question_text"]
+    assert repo.created_questions[0]["evidence_summary"].startswith("backend=milvus; prompt_fallback=True")
+    assert retrieval_service.calls == []
+    assert fallback_prompt_service.calls[0]["fallback_result"] == {"draft_question": "follow::cpp_backend::deepen::system_design"}
 
 
 def test_complete_session_allows_early_finish_without_answers():

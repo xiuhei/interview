@@ -7,6 +7,19 @@ DEFAULT_OPENING_BY_ROLE = {
     "cpp_backend": "请介绍一个你做过的 C++ 后端项目，说说你负责什么，难点在哪。",
 }
 
+DEFAULT_OPENING_VARIANTS_BY_ROLE = {
+    "web_frontend": [
+        "请介绍一个你做过的前端项目，说说你负责什么，难点在哪。",
+        "挑一个你最有代表性的前端项目，讲讲业务背景、你的职责、关键取舍和上线结果。",
+        "回顾一次你主导或深度参与的前端改造，重点讲清楚问题、方案、效果和复盘。",
+    ],
+    "cpp_backend": [
+        "请介绍一个你做过的 C++ 后端项目，说说你负责什么，难点在哪。",
+        "挑一个你最有代表性的 C++ 后端项目，讲讲业务背景、你的职责、关键取舍和最终结果。",
+        "回顾一次你主导或深度参与的后端优化或故障排查，重点讲清楚问题、方案、效果和复盘。",
+    ],
+}
+
 DEFAULT_FOLLOW_UP = {
     "deepen": "继续说说 {competency}。",
     "redirect": "先回到 {competency} 这个点。",
@@ -160,9 +173,10 @@ class QuestionSeedService:
             for item in payload.get("opening", [])
             if item.get("question") and self._is_project_depth_question_text(item["question"])
         ]
-        base_question = self._pick_question(opening_pool, used_questions, selector_seed) or DEFAULT_OPENING_BY_ROLE.get(
+        base_question = self._pick_question(opening_pool, used_questions, selector_seed) or self._pick_default_opening(
             role_code,
-            "请先介绍一个你做过的代表性项目，重点说明你的职责、难点和结果。",
+            used_questions,
+            selector_seed,
         )
         return self._apply_opening_difficulty(base_question, style), competency
 
@@ -361,6 +375,17 @@ class QuestionSeedService:
             if item not in used_questions:
                 return item
         return ranked[0]
+
+    def _pick_default_opening(self, role_code: str, used_questions: list[str], selector_seed: str | int | None) -> str:
+        variants = DEFAULT_OPENING_VARIANTS_BY_ROLE.get(role_code)
+        if variants:
+            picked = self._pick_question(variants, used_questions, selector_seed)
+            if picked:
+                return picked
+        return DEFAULT_OPENING_BY_ROLE.get(
+            role_code,
+            "请先介绍一个你做过的代表性项目，重点说明你的职责、难点和结果。",
+        )
 
     def _is_valid_question_text(self, value: str) -> bool:
         normalized = self._normalize_text(value)

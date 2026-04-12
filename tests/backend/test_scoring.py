@@ -6,7 +6,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "backend"))
 
-from app.audio.analysis import analyze_audio
+from app.audio.analysis import analyze_audio, map_audio_scores
 from app.schemas.interview import RetrievalEvidence
 from app.services.scoring_service import ScoringService
 from app.utils.text import extract_keywords
@@ -367,6 +367,48 @@ def test_analyze_audio_uses_ffmpeg_fallback_when_librosa_cannot_decode(monkeypat
 
     assert features["status"] == "available"
     assert features["speech_rate"] is not None
+
+
+def _build_speech_like_signal(pattern: list[tuple[float, float]], sample_rate: int = 16000) -> np.ndarray:
+    chunks: list[np.ndarray] = []
+    for duration, amplitude in pattern:
+        samples = max(1, int(sample_rate * duration))
+        time_axis = np.linspace(0, duration, samples, endpoint=False)
+        chunks.append((np.sin(2 * np.pi * 220 * time_axis) * amplitude).astype(np.float32))
+    return np.concatenate(chunks)
+
+
+def test_analyze_audio_detects_different_pause_and_rate_patterns(monkeypatch):
+    dense_signal = _build_speech_like_signal([(0.08, 0.8), (0.05, 0.0)] * 12)
+    sparse_signal = _build_speech_like_signal([(0.08, 0.8), (0.28, 0.0)] * 8)
+
+    signals = iter([(dense_signal, 16000), (sparse_signal, 16000)])
+    monkeypatch.setattr("app.audio.analysis._load_audio_signal", lambda _: next(signals))
+
+    dense_features = analyze_audio(Path("dense.wav"))
+    sparse_features = analyze_audio(Path("sparse.wav"))
+
+    assert dense_features["status"] == "available"
+    assert sparse_features["status"] == "available"
+    assert dense_features["pause_ratio"] < sparse_features["pause_ratio"]
+    assert dense_features["speech_rate"] > sparse_features["speech_rate"]
+
+
+def test_map_audio_scores_penalizes_extreme_rate_and_pause():
+    scores = map_audio_scores(
+        {
+            "status": "available",
+            "volume_stability": 82.0,
+            "pause_ratio": 68.0,
+            "speech_rate": 8.5,
+            "pitch_variation": 12.0,
+            "voiced_ratio": 32.0,
+        }
+    )
+
+    assert scores["fluency"] < 55
+    assert scores["confidence"] < 60
+    assert scores["emotion"] < 75
 
 
 def test_extract_keywords_keeps_meaningful_chinese_phrases():

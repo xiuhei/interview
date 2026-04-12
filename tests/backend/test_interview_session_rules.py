@@ -289,6 +289,7 @@ def test_get_history_detail_returns_full_archive():
         cleanup_expired_unfinished_sessions=lambda expires_before, user_id=None: 0,
     )
     service._history_audio_duration_seconds = lambda current_answer: 4.2 if current_answer is answer else None
+    service._refresh_history_audio_analysis = lambda current_session: False
 
     archive = service.get_history_detail(7, 1)
 
@@ -368,6 +369,7 @@ def test_get_history_detail_hides_audio_scores_for_text_answers():
         get_session=lambda session_id: session if session_id == 2 else None,
         cleanup_expired_unfinished_sessions=lambda expires_before, user_id=None: 0,
     )
+    service._refresh_history_audio_analysis = lambda current_session: False
 
     archive = service.get_history_detail(7, 2)
 
@@ -439,7 +441,7 @@ def test_get_history_detail_recovers_unavailable_audio_scores_for_audio_answers(
         cleanup_expired_unfinished_sessions=lambda expires_before, user_id=None: 0,
     )
 
-    def fake_recover(current_session):
+    def fake_refresh(current_session):
         assert current_session is session
         answer.score.audio_scores = {"status": "available", "clarity": 88.0, "confidence": 85.0}
         answer.audio_features = SimpleNamespace(
@@ -453,13 +455,32 @@ def test_get_history_detail_recovers_unavailable_audio_scores_for_audio_answers(
         answer.score.overall_score = 79.0
         return True
 
-    service._recover_history_audio_scores = fake_recover
+    service._refresh_history_audio_analysis = fake_refresh
 
     archive = service.get_history_detail(7, 3)
 
     assert archive.questions[0].audio_scores["clarity"] == 88.0
     assert archive.questions[0].audio_features.status == "available"
     assert archive.questions[0].overall_score == 79.0
+
+
+def test_should_recover_audio_evaluation_for_legacy_audio_signature():
+    answer = SimpleNamespace(
+        id=301,
+        answer_mode=AnswerMode.audio,
+        score=SimpleNamespace(audio_scores={"status": "available", "fluency": 88.0}),
+        audio_features=SimpleNamespace(
+            status="available",
+            pause_ratio=25.1,
+            speech_rate=25.4,
+            voiced_ratio=74.9,
+        ),
+        audio_path="uploads/audio/legacy.webm",
+    )
+    service = object.__new__(InterviewService)
+    service._resolve_answer_audio_path = lambda current_answer: Path("legacy.webm") if current_answer is answer else None
+
+    assert service._should_recover_audio_evaluation(answer) is True
 
 
 def test_get_history_detail_rejects_unfinished_session():

@@ -286,6 +286,7 @@ class InterviewService:
                 },
             },
             error_message="AI 首题生成失败，请检查大模型服务配置、鉴权和网络连接后重试。",
+            fallback_result={"draft_question": question_text},
         )
         retrieval_backend = retrieval.backend
         evidence_count = len(retrieval.evidence)
@@ -628,6 +629,8 @@ class InterviewService:
     def get_report(self, session_id: int) -> InterviewReportRead:
         self._cleanup_expired_sessions()
         session = self._get_session(session_id)
+        if self._refresh_history_audio_analysis(session):
+            session = self._get_session(session_id)
         if not self._is_report_ready(session):
             self._ensure_history_report_pending(session)
             logger.info("report pending | session_id=%s", session.id)
@@ -670,7 +673,7 @@ class InterviewService:
         session = self._get_session(session_id)
         if session.user_id != user_id or session.status != InterviewStatus.completed or not self._is_archivable_session(session):
             raise AppException("Interview session not found", 404)
-        if self._recover_history_audio_scores(session):
+        if self._refresh_history_audio_analysis(session):
             session = self._get_session(session_id)
 
         report_payload = self._history_report_payload(session)
@@ -1320,9 +1323,10 @@ class InterviewService:
         variables: dict,
         *,
         error_message: str,
+        fallback_result: dict | None = None,
     ) -> tuple[dict, bool]:
         try:
-            return self.prompt_service.run_json_prompt(name, variables)
+            return self.prompt_service.run_json_prompt(name, variables, fallback_result=fallback_result)
         except AppException:
             raise
         except Exception as exc:
@@ -1716,11 +1720,28 @@ class InterviewService:
     def _should_recover_audio_evaluation(self, answer) -> bool:
         if not answer or answer.answer_mode != AnswerMode.audio or not answer.score:
             return False
+        if self._has_legacy_audio_analysis_signature(answer):
+            return self._resolve_answer_audio_path(answer) is not None
         audio_scores = answer.score.audio_scores or {}
         audio_feature_status = getattr(answer.audio_features, "status", None)
         if audio_scores.get("status") == "available" and audio_feature_status == "available":
             return False
         return self._resolve_answer_audio_path(answer) is not None
+
+    def _has_legacy_audio_analysis_signature(self, answer) -> bool:
+        audio_features = getattr(answer, "audio_features", None)
+        if getattr(audio_features, "status", None) != "available":
+            return False
+        pause_ratio = getattr(audio_features, "pause_ratio", None)
+        voiced_ratio = getattr(audio_features, "voiced_ratio", None)
+        speech_rate = getattr(audio_features, "speech_rate", None)
+        if not all(isinstance(value, (int, float)) for value in (pause_ratio, voiced_ratio, speech_rate)):
+            return False
+        return (
+            abs(float(pause_ratio) - 25.0) <= 1.5
+            and abs(float(voiced_ratio) - 75.0) <= 1.5
+            and float(speech_rate) >= 20.0
+        )
 
     def _recover_history_audio_scores(self, session) -> bool:
         recovered = False
@@ -1767,6 +1788,16 @@ class InterviewService:
                     getattr(answer, "id", None),
                 )
         return recovered
+
+    def _refresh_history_audio_analysis(self, session) -> bool:
+        if session.status != InterviewStatus.completed:
+            return False
+        if not self._recover_history_audio_scores(session):
+            return False
+        refreshed_session = self._get_session(session.id)
+        self._build_report(refreshed_session)
+        logger.info("history audio analysis refreshed | session_id=%s", session.id)
+        return True
 
     def _ensure_session_scores(self, session) -> None:
         missing_answer_ids = [item.id for item in self._ordered_answers(session) if not item.score]
@@ -2757,6 +2788,7 @@ class InterviewService:
                 },
             },
             error_message="AI 追问生成失败，请检查大模型服务配置、鉴权和网络连接后重试。",
+            fallback_result={"draft_question": next_question_text},
         )
         final_question_text = self._sanitize_generated_question(
             prompt_result.get("draft_question", next_question_text),

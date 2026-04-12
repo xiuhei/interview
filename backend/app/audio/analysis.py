@@ -21,6 +21,60 @@ def _unavailable_features() -> dict:
     }
 
 
+def _build_voiced_mask(rms: np.ndarray) -> np.ndarray:
+    if rms.size == 0:
+        return np.zeros(0, dtype=bool)
+    strong_level = float(np.percentile(rms, 95))
+    median_level = float(np.median(rms))
+    threshold = max(strong_level * 0.12, min(median_level * 1.5, strong_level * 0.7), 1e-4)
+    return rms >= threshold
+
+
+def _estimate_volume_stability(rms: np.ndarray, voiced_mask: np.ndarray) -> float:
+    voiced_rms = rms[voiced_mask]
+    if voiced_rms.size == 0:
+        return 0.0
+    coeff = float(np.std(voiced_rms) / max(np.mean(voiced_rms), 1e-4))
+    return max(0.0, 100.0 - min(coeff * 55.0, 100.0))
+
+
+def _estimate_speech_rate(signal: np.ndarray, sample_rate: int, duration_seconds: float) -> float:
+    onset_env = librosa.onset.onset_strength(y=signal, sr=sample_rate)
+    if onset_env.size == 0:
+        return 0.0
+    delta = max(float(np.std(onset_env) * 0.5), float(np.mean(onset_env) * 0.2), 0.05)
+    peaks = librosa.util.peak_pick(
+        onset_env,
+        pre_max=2,
+        post_max=2,
+        pre_avg=4,
+        post_avg=4,
+        delta=delta,
+        wait=2,
+    )
+    return float(len(peaks) / max(duration_seconds, 1e-4))
+
+
+def _estimate_pitch_variation(pitches: np.ndarray, magnitudes: np.ndarray) -> float:
+    positive_magnitudes = magnitudes[magnitudes > 0]
+    if positive_magnitudes.size == 0:
+        return 0.0
+    magnitude_threshold = float(np.percentile(positive_magnitudes, 75))
+    pitch_values = pitches[magnitudes >= magnitude_threshold]
+    pitch_values = pitch_values[(pitch_values >= 70) & (pitch_values <= 500)]
+    if pitch_values.size < 4:
+        return 0.0
+    pitch_median = float(np.median(pitch_values))
+    if pitch_median <= 0:
+        return 0.0
+    semitone_offsets = 12.0 * np.log2(pitch_values / pitch_median)
+    return float(np.percentile(np.abs(semitone_offsets), 75))
+
+
+def _speech_rate_score(speech_rate: float) -> float:
+    return max(0.0, 100.0 - min(abs(speech_rate - 3.8) * 28.0, 100.0))
+
+
 def _load_audio_signal(audio_path: Path) -> tuple[np.ndarray, int] | None:
     try:
         return librosa.load(audio_path, sr=None)
@@ -86,21 +140,19 @@ def analyze_audio(audio_path: Path) -> dict:
         return _unavailable_features()
 
     rms = librosa.feature.rms(y=signal)[0]
-    zcr = librosa.feature.zero_crossing_rate(y=signal)[0]
     pitches, magnitudes = librosa.piptrack(y=signal, sr=sample_rate)
-    pitch_values = pitches[magnitudes > np.median(magnitudes)]
 
     duration_seconds = librosa.get_duration(y=signal, sr=sample_rate) or 1.0
-    silence_frames = np.sum(rms < np.percentile(rms, 25))
-    pause_ratio = float(silence_frames / max(len(rms), 1))
-    voiced_ratio = float(1.0 - pause_ratio)
-    volume_stability = float(1.0 / (1.0 + np.std(rms)))
-    pitch_variation = float(np.std(pitch_values) if len(pitch_values) else 0.0)
-    speech_rate = float((len(zcr) / duration_seconds) * 0.8)
+    voiced_mask = _build_voiced_mask(rms)
+    voiced_ratio = float(np.mean(voiced_mask)) if voiced_mask.size else 0.0
+    pause_ratio = float(1.0 - voiced_ratio)
+    volume_stability = _estimate_volume_stability(rms, voiced_mask)
+    pitch_variation = _estimate_pitch_variation(pitches, magnitudes)
+    speech_rate = _estimate_speech_rate(signal, sample_rate, duration_seconds)
 
     return {
         "status": "available",
-        "volume_stability": round(volume_stability * 100, 2),
+        "volume_stability": round(volume_stability, 2),
         "pause_ratio": round(pause_ratio * 100, 2),
         "speech_rate": round(speech_rate, 2),
         "pitch_variation": round(pitch_variation, 2),
@@ -133,15 +185,20 @@ def map_audio_scores(features: dict) -> dict:
             "pause_comment": "未提供语音",
         }
 
-    confidence = min(100.0, max(0.0, features["voiced_ratio"] * 0.55 + features["volume_stability"] * 0.45))
-    clarity = min(100.0, max(0.0, features["volume_stability"] * 0.6 + (100 - features["pause_ratio"]) * 0.4))
-    fluency = min(100.0, max(0.0, (100 - features["pause_ratio"]) * 0.65 + min(features["speech_rate"] * 2.0, 100) * 0.35))
-    emotion = min(100.0, max(0.0, 55 + min(features["pitch_variation"] / 3.0, 45)))
+    speech_rate = float(features["speech_rate"])
+    pitch_variation = float(features["pitch_variation"])
+    speech_rate_score = _speech_rate_score(speech_rate)
+    pitch_stability_score = max(0.0, 100.0 - min(abs(pitch_variation - 4.5) * 18.0, 100.0))
 
-    speech_rate_comment = "语速偏快" if features["speech_rate"] > 6 else "语速平稳"
-    if features["speech_rate"] < 3:
+    confidence = min(100.0, max(0.0, features["voiced_ratio"] * 0.5 + features["volume_stability"] * 0.5))
+    clarity = min(100.0, max(0.0, (100 - features["pause_ratio"]) * 0.45 + features["volume_stability"] * 0.55))
+    fluency = min(100.0, max(0.0, (100 - features["pause_ratio"]) * 0.55 + speech_rate_score * 0.45))
+    emotion = min(100.0, max(0.0, pitch_stability_score * 0.65 + features["volume_stability"] * 0.35))
+
+    speech_rate_comment = "语速偏快" if speech_rate > 5.5 else "语速平稳"
+    if speech_rate < 2.0:
         speech_rate_comment = "语速偏慢"
-    pause_comment = "停顿较多" if features["pause_ratio"] > 35 else "停顿控制较好"
+    pause_comment = "停顿较多" if features["pause_ratio"] > 50 else "停顿控制较好"
 
     return {
         "status": "available",

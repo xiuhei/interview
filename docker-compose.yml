@@ -158,6 +158,10 @@ services:
       dockerfile: backend/Dockerfile
       args:
         PYTHON_BASE_IMAGE: "${PYTHON_BASE_IMAGE:-python:3.12-slim}"
+        APT_MIRROR: "${APT_MIRROR:-https://mirrors.tuna.tsinghua.edu.cn/debian}"
+        APT_SECURITY_MIRROR: "${APT_SECURITY_MIRROR:-https://mirrors.tuna.tsinghua.edu.cn/debian-security}"
+        PIP_INDEX_URL: "${PIP_INDEX_URL:-https://pypi.tuna.tsinghua.edu.cn/simple}"
+        PIP_TRUSTED_HOST: "${PIP_TRUSTED_HOST:-pypi.tuna.tsinghua.edu.cn}"
     restart: unless-stopped
     networks:
       - interview_network
@@ -193,6 +197,7 @@ services:
       dockerfile: frontend/Dockerfile
       args:
         NODE_BASE_IMAGE: "${NODE_BASE_IMAGE:-node:24-alpine}"
+        NPM_REGISTRY: "${NPM_REGISTRY:-https://registry.npmmirror.com}"
     restart: unless-stopped
     networks:
       - interview_network
