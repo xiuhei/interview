@@ -559,7 +559,7 @@ async function handleFinish() {
 <style scoped>
 .run-layout {
   display: grid;
-  grid-template-columns: 1.35fr 0.65fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 16px;
 }
 .run-layout.single-column {

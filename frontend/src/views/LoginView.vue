@@ -22,7 +22,7 @@
 
       <el-form :model="form" label-position="top" @submit.prevent="handleLogin">
         <el-form-item label="用户名">
-          <el-input v-model="form.username" placeholder="demo / admin" />
+          <el-input v-model="form.username" placeholder="demo" />
         </el-form-item>
         <el-form-item label="密码">
           <el-input v-model="form.password" type="password" placeholder="Demo123!" show-password />
@@ -32,7 +32,6 @@
 
       <div class="account-strip">
         <span class="account-pill">演示账号：demo / Demo123!</span>
-        <span class="account-pill">管理员：admin / Admin123!</span>
       </div>
     </section>
   </div>

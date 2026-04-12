@@ -22,6 +22,58 @@ warn()    { echo -e "${YELLOW}[WARN]${NC} $1"; }
 error()   { echo -e "${RED}[ERROR]${NC} $1"; }
 stage()   { echo -e "\n${CYAN}========== $1 ==========${NC}\n"; }
 
+get_dotenv_value() {
+    local key="$1"
+    local env_file="$PROJECT_DIR/.env"
+    if [ ! -f "$env_file" ]; then
+        return 0
+    fi
+    grep -E "^${key}=" "$env_file" | tail -n 1 | cut -d= -f2-
+}
+
+ensure_image_reference() {
+    local key="$1"
+    local fallback="$2"
+    local configured="${!key:-}"
+
+    if [ -z "$configured" ]; then
+        configured="$(get_dotenv_value "$key")"
+    fi
+
+    if [ -z "$configured" ]; then
+        configured="$fallback"
+    fi
+
+    if docker manifest inspect "$configured" >/dev/null 2>&1; then
+        export "$key=$configured"
+        info "Using ${key}=${configured}"
+        return 0
+    fi
+
+    warn "${key}=${configured} is unavailable, falling back to ${fallback}"
+    if docker manifest inspect "$fallback" >/dev/null 2>&1; then
+        export "$key=$fallback"
+        success "Fallback ${key}=${fallback} is available"
+        return 0
+    fi
+
+    error "Neither ${configured} nor fallback ${fallback} is available for ${key}"
+    return 1
+}
+
+prepare_compose_overrides() {
+    stage "Resolving deployment images"
+
+    ensure_image_reference PYTHON_BASE_IMAGE "python:3.12-slim"
+    ensure_image_reference NODE_BASE_IMAGE "node:24-alpine"
+    ensure_image_reference MYSQL_IMAGE "mysql:8.4"
+    ensure_image_reference REDIS_IMAGE "redis:7.4-alpine"
+    ensure_image_reference ETCD_IMAGE "quay.io/coreos/etcd:v3.5.5"
+    ensure_image_reference MINIO_IMAGE "minio/minio:RELEASE.2024-12-18T13-15-44Z"
+    ensure_image_reference MILVUS_IMAGE "milvusdb/milvus:v2.5.4"
+    ensure_image_reference NGINX_IMAGE "nginx:1.27-alpine"
+}
+
 wait_for_healthy() {
     local container="$1"
     local display_name="$2"
@@ -81,6 +133,8 @@ check_prerequisites() {
         warn "fill required API keys in .env and rerun"
         exit 1
     fi
+
+    prepare_compose_overrides
 }
 
 do_up() {
