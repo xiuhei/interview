@@ -1,0 +1,9 @@
+{
+  "user_id": "user_002",
+  "role_code": "cpp_backend",
+  "recent_weaknesses": [
+    "没有量化结果",
+    "个人职责边界不清",
+    "排障只讲现象不讲根因"
+  ]
+}

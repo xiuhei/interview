@@ -1,0 +1,12 @@
+{
+  "user_id": "user_012",
+  "username": "user12",
+  "display_name": "白屿",
+  "role_code": "cpp_backend",
+  "target_level": "junior_to_mid",
+  "focuses": [
+    "扩展性思考不足",
+    "无法区分主次矛盾"
+  ],
+  "summary": "白屿 是用于演示的 C++ 后端 候选人画像。"
+}

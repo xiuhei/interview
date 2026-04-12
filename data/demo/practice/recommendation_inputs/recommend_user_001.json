@@ -1,0 +1,9 @@
+{
+  "user_id": "user_001",
+  "role_code": "web_frontend",
+  "recent_weaknesses": [
+    "只讲方案不讲取舍",
+    "没有量化结果",
+    "个人职责边界不清"
+  ]
+}

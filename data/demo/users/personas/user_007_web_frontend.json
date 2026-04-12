@@ -1,0 +1,12 @@
+{
+  "user_id": "user_007",
+  "username": "user07",
+  "display_name": "顾淮",
+  "role_code": "web_frontend",
+  "target_level": "junior_to_mid",
+  "focuses": [
+    "缺少降级与兜底意识",
+    "扩展性思考不足"
+  ],
+  "summary": "顾淮 是用于演示的 Web 前端 候选人画像。"
+}

@@ -1,0 +1,12 @@
+{
+  "user_id": "user_011",
+  "role_code": "web_frontend",
+  "session_no": 4,
+  "created_at": "2026-03-23",
+  "total_score": 73,
+  "weaknesses": [
+    "表达不够清晰",
+    "项目故事线不完整"
+  ],
+  "summary": "用于演示成长记录和报告详情的面试归档。"
+}

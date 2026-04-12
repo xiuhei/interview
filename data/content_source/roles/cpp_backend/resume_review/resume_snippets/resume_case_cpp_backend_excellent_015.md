@@ -1,0 +1,27 @@
+---
+id: resume_case_cpp_backend_excellent_015
+doc_type: resume
+role: cpp_backend
+level: junior_to_mid
+case_type: excellent_snippet
+tags: [cpp_backend, resume, excellent]
+applicable_features: [resume_review, jd_match]
+---
+# 优秀简历片段：直播后端
+
+## original_resume_excerpt
+主导 直播后端，明确负责模块、方案取舍和指标闭环，结果可被数据验证。
+
+## strengths
+- 职责清晰、技术动作明确、结果量化、岗位相关性强。
+- 岗位相关性明确
+
+## issues
+- 需要明确你本人负责的模块
+- 建议补充量化结果和验证方式
+
+## rewrite_suggestion
+把 直播后端 描述改成“职责-动作-结果-验证”的结构。
+
+## reviewer_comments
+优秀简历片段 主要用于 C++ 后端 简历评分的对照样本。

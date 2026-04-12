@@ -1,0 +1,13 @@
+{
+  "user_id": "user_005",
+  "role_code": "web_frontend",
+  "session_no": 2,
+  "created_at": "2026-03-29",
+  "total_score": 77,
+  "weaknesses": [
+    "缺少降级与兜底意识",
+    "缺少监控与验证闭环"
+  ],
+  "summary": "用于演示成长记录和报告详情的面试归档。",
+  "report_ready": true
+}

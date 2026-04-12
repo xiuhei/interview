@@ -1,0 +1,12 @@
+{
+  "user_id": "user_001",
+  "username": "demo",
+  "display_name": "演示用户",
+  "role_code": "web_frontend",
+  "target_level": "junior_to_mid",
+  "focuses": [
+    "只讲方案不讲取舍",
+    "边界条件意识弱"
+  ],
+  "summary": "演示用户 是用于演示的 Web 前端 候选人画像。"
+}

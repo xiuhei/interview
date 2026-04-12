@@ -1,0 +1,25 @@
+job_name: Web前端开发
+competencies:
+  - name: HTML/CSS/JS基础
+    weight: 0.15
+    key_topics: [语义化HTML, CSS布局, Flex/Grid, ES6+, 异步编程]
+  - name: TypeScript
+    weight: 0.1
+    key_topics: [类型系统, 泛型, 类型推断, 声明文件]
+  - name: Vue工程化
+    weight: 0.2
+    key_topics: [Vue3 Composition API, 响应式原理, 组件通信, Pinia, Vue Router]
+  - name: 浏览器机制
+    weight: 0.1
+    key_topics: [渲染流程, 事件循环, 内存管理, 安全策略]
+  - name: 组件设计
+    weight: 0.1
+    key_topics: [组件封装, 复用策略, 设计模式, UI库定制]
+  - name: 网络与性能
+    weight: 0.15
+    key_topics: [HTTP协议, 缓存策略, 懒加载, 打包优化, Core Web Vitals]
+  - name: 项目真实性
+    weight: 0.2
+    key_topics: [项目背景, 个人职责, 量化结果, 技术选型理由]
+max_rounds: 10
+min_coverage: 0.8

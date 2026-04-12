@@ -1,0 +1,12 @@
+{
+  "user_id": "user_003",
+  "username": "user03",
+  "display_name": "周越",
+  "role_code": "web_frontend",
+  "target_level": "junior_to_mid",
+  "focuses": [
+    "个人职责边界不清",
+    "缺少监控与验证闭环"
+  ],
+  "summary": "周越 是用于演示的 Web 前端 候选人画像。"
+}

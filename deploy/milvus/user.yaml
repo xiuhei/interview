@@ -1,0 +1,3 @@
+minio:
+  useVirtualHost: false   # 强制 path-style（http://host:port/bucket/obj）
+                          # 避免 virtual-host-style URL 含下划线被 RFC1123 拒绝

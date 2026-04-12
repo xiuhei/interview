@@ -1,0 +1,7 @@
+chunk_ms: 200
+speech_threshold: 0.03
+silence_ms_to_end: 1500
+min_speech_ms: 500
+max_silence_before_prompt: 10000
+sample_rate: 16000
+channels: 1

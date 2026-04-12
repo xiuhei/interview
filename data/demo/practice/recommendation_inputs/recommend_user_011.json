@@ -1,0 +1,9 @@
+{
+  "user_id": "user_011",
+  "role_code": "web_frontend",
+  "recent_weaknesses": [
+    "状态流描述混乱",
+    "扩展性思考不足",
+    "一致性与可用性取舍薄弱"
+  ]
+}

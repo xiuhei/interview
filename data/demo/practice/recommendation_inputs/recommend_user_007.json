@@ -1,0 +1,9 @@
+{
+  "user_id": "user_007",
+  "role_code": "web_frontend",
+  "recent_weaknesses": [
+    "缺少降级与兜底意识",
+    "缺少监控与验证闭环",
+    "稳定性意识不足"
+  ]
+}

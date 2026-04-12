@@ -1,0 +1,14 @@
+{
+  "name": "interview-doc-tools",
+  "private": true,
+  "scripts": {
+    "diagrams": "python create_diagrams.py",
+    "overview": "node gen_overview.js",
+    "detail": "node gen_detail.js",
+    "slides": "node gen_ppt.js"
+  },
+  "dependencies": {
+    "docx": "^9.6.1",
+    "pptxgenjs": "^4.0.1"
+  }
+}

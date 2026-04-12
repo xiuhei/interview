@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "id",
+    "doc_type",
+    "role",
+    "title",
+    "tags",
+    "applicable_features",
+    "sections",
+    "target_level",
+    "weakness_type"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "doc_type": {
+      "const": "growth"
+    },
+    "role": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "applicable_features": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "sections": {
+      "type": "object",
+      "required": [
+        "diagnosis",
+        "improvement_advice",
+        "recommended_practice",
+        "expected_outcome"
+      ],
+      "properties": {
+        "diagnosis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "improvement_advice": {
+          "type": "string",
+          "minLength": 1
+        },
+        "recommended_practice": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expected_outcome": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "target_level": {
+      "type": "string",
+      "minLength": 1
+    },
+    "weakness_type": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

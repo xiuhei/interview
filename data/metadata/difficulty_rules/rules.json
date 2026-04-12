@@ -1,0 +1,12 @@
+{
+  "question": {
+    "easy": "单点概念清晰即可",
+    "medium": "需要机制、场景或基本取舍说明",
+    "hard": "需要 trade-off、证据链或设计能力"
+  },
+  "knowledge": {
+    "beginner": "定义与基本边界",
+    "intermediate": "机制、应用与常见误区",
+    "advanced": "复杂场景、限制条件与验证路径"
+  }
+}

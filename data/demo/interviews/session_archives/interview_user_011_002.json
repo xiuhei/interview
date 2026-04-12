@@ -1,0 +1,12 @@
+{
+  "user_id": "user_011",
+  "role_code": "web_frontend",
+  "session_no": 2,
+  "created_at": "2026-03-29",
+  "total_score": 63,
+  "weaknesses": [
+    "一致性与可用性取舍薄弱",
+    "性能问题没有证据"
+  ],
+  "summary": "用于演示成长记录和报告详情的面试归档。"
+}

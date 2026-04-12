@@ -1,0 +1,5 @@
+style_name: 困难难度
+tone: 更强调复杂场景、架构判断、量化结果和边界意识
+followup_intensity: high
+tolerance_for_generic: low
+guide_on_stuck: false

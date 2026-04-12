@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "id",
+    "doc_type",
+    "role",
+    "title",
+    "tags",
+    "applicable_features",
+    "sections",
+    "category",
+    "subcategory",
+    "level"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "doc_type": {
+      "const": "competency"
+    },
+    "role": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "applicable_features": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "sections": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "summary",
+            "signals",
+            "interview_focus",
+            "usage"
+          ],
+          "properties": {
+            "summary": {
+              "type": "string",
+              "minLength": 1
+            },
+            "signals": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            },
+            "interview_focus": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            },
+            "usage": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": [
+            "dimension",
+            "qualified_signals",
+            "unqualified_signals",
+            "scoring_hint"
+          ],
+          "properties": {
+            "dimension": {
+              "type": "string",
+              "minLength": 1
+            },
+            "qualified_signals": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            },
+            "unqualified_signals": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            },
+            "scoring_hint": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      ]
+    },
+    "category": {
+      "type": "string",
+      "minLength": 1
+    },
+    "subcategory": {
+      "type": "string",
+      "minLength": 1
+    },
+    "level": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "user_id": "user_003",
+  "role_code": "web_frontend",
+  "recent_weaknesses": [
+    "个人职责边界不清",
+    "排障只讲现象不讲根因",
+    "答题重点分散"
+  ]
+}

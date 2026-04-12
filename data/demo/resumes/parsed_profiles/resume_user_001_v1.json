@@ -1,0 +1,12 @@
+{
+  "user_id": "user_001",
+  "role_code": "web_frontend",
+  "version": 1,
+  "highlights": [
+    "增加了职责边界说明",
+    "增加了结果指标"
+  ],
+  "risk_points": [
+    "项目描述没有时间和范围"
+  ]
+}

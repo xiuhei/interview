@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "opening",
+    "competencies",
+    "follow_up"
+  ],
+  "properties": {
+    "opening": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "question",
+          "competency_code"
+        ],
+        "properties": {
+          "question": {
+            "type": "string",
+            "minLength": 1
+          },
+          "competency_code": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "competencies": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "question"
+          ],
+          "properties": {
+            "question": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "follow_up": {
+      "type": "object",
+      "required": [
+        "deepen",
+        "redirect",
+        "credibility"
+      ],
+      "properties": {
+        "deepen": {
+          "type": "string",
+          "minLength": 1
+        },
+        "redirect": {
+          "type": "string",
+          "minLength": 1
+        },
+        "credibility": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

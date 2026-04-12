@@ -1,0 +1,9 @@
+{
+  "user_id": "user_011",
+  "role_code": "web_frontend",
+  "attempt_no": 1,
+  "question_ref": "q_web_frontend_foundation_001",
+  "score": 70,
+  "weakness_tag": "扩展性思考不足",
+  "created_at": "2026-04-03"
+}

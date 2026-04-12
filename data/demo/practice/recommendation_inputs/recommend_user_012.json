@@ -1,0 +1,9 @@
+{
+  "user_id": "user_012",
+  "role_code": "cpp_backend",
+  "recent_weaknesses": [
+    "扩展性思考不足",
+    "一致性与可用性取舍薄弱",
+    "性能问题没有证据"
+  ]
+}

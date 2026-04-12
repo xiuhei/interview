@@ -1,0 +1,12 @@
+{
+  "user_id": "user_006",
+  "username": "user06",
+  "display_name": "唐语",
+  "role_code": "cpp_backend",
+  "target_level": "junior_to_mid",
+  "focuses": [
+    "边界条件意识弱",
+    "状态流描述混乱"
+  ],
+  "summary": "唐语 是用于演示的 C++ 后端 候选人画像。"
+}

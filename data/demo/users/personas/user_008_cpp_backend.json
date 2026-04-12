@@ -1,0 +1,12 @@
+{
+  "user_id": "user_008",
+  "username": "user08",
+  "display_name": "陆翎",
+  "role_code": "cpp_backend",
+  "target_level": "junior_to_mid",
+  "focuses": [
+    "缺少监控与验证闭环",
+    "一致性与可用性取舍薄弱"
+  ],
+  "summary": "陆翎 是用于演示的 C++ 后端 候选人画像。"
+}

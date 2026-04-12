@@ -1,0 +1,260 @@
+# =============================================================================
+# AI 模拟面试平台 - Docker Compose 编排
+# =============================================================================
+#
+# 服务拓扑（8 个独立容器）:
+#
+#   interview_nginx  ─→  interview_frontend (Vue3/Vite)
+#        │
+#        └──→  interview_backend (FastAPI)
+#                   │
+#                   ├──→  interview_mysql    (MySQL 8.4)
+#                   ├──→  interview_redis    (Redis 7.4)
+#                   └──→  interview_milvus   (Milvus v2.5.4)
+#                              │
+#                              ├──→  interview_etcd  (元数据存储)
+#                              └──→  interview_minio  (对象存储)
+#
+# 端口策略: 仅 interview_nginx 暴露 80 端口到宿主机
+# 网络策略: 所有容器通过 interview_network 互联，禁止 host 网络模式
+# 命名策略: 统一 interview_ 前缀，避免与宿主机已有容器冲突
+# =============================================================================
+
+services:
+  # ---------------------------------------------------------------------------
+  # 基础设施层
+  # ---------------------------------------------------------------------------
+
+  # MySQL 8.4 - 关系型数据库，存储用户、面试、简历等业务数据
+  interview_mysql:
+    container_name: interview_mysql
+    image: "${MYSQL_IMAGE:-mysql:8.4}"
+    restart: unless-stopped
+    networks:
+      - interview_network
+    environment:
+      MYSQL_ROOT_PASSWORD: "123456"
+      MYSQL_DATABASE: interview
+      MYSQL_CHARSET: utf8mb4
+      MYSQL_COLLATION: utf8mb4_unicode_ci
+    volumes:
+      - interview_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p123456"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  # Redis 7.4 - 缓存与会话存储
+  interview_redis:
+    container_name: interview_redis
+    image: "${REDIS_IMAGE:-redis:7.4-alpine}"
+    restart: unless-stopped
+    networks:
+      - interview_network
+    command: redis-server --appendonly yes
+    volumes:
+      - interview_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # etcd v3.5.5 - Milvus 元数据存储后端
+  interview_etcd:
+    container_name: interview_etcd
+    image: "${ETCD_IMAGE:-quay.io/coreos/etcd:v3.5.5}"
+    restart: unless-stopped
+    networks:
+      - interview_network
+    environment:
+      ETCD_AUTO_COMPACTION_MODE: revision
+      ETCD_AUTO_COMPACTION_RETENTION: "1000"
+      ETCD_QUOTA_BACKEND_BYTES: "4294967296"
+      ETCD_SNAPSHOT_COUNT: "50000"
+    command: >
+      etcd
+      -advertise-client-urls=http://interview_etcd:2379
+      -listen-client-urls=http://0.0.0.0:2379
+      --data-dir=/etcd
+    volumes:
+      - interview_etcd_data:/etcd
+    healthcheck:
+      test: ["CMD", "etcdctl", "endpoint", "health", "--endpoints=http://localhost:2379"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  # MinIO - Milvus 对象存储后端
+  interview_minio:
+    container_name: interview_minio
+    image: "${MINIO_IMAGE:-minio/minio:RELEASE.2024-12-18T13-15-44Z}"
+    restart: unless-stopped
+    networks:
+      interview_network:
+        aliases:
+          - interview-minio
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: minio server /minio_data
+    volumes:
+      - interview_minio_data:/minio_data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:9000/minio/health/live || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  # ---------------------------------------------------------------------------
+  # 向量数据库层
+  # ---------------------------------------------------------------------------
+
+  # Milvus v2.5.4 - 向量数据库，用于 RAG 知识库检索
+  interview_milvus:
+    container_name: interview_milvus
+    image: "${MILVUS_IMAGE:-milvusdb/milvus:v2.5.4}"
+    restart: unless-stopped
+    networks:
+      - interview_network
+    command: ["milvus", "run", "standalone"]
+    environment:
+      ETCD_ENDPOINTS: interview_etcd:2379
+      MINIO_ADDRESS: interview-minio:9000
+      MINIO_ACCESS_KEY_ID: minioadmin
+      MINIO_SECRET_ACCESS_KEY: minioadmin
+      MINIO_USE_SSL: "false"
+    depends_on:
+      interview_etcd:
+        condition: service_healthy
+      interview_minio:
+        condition: service_healthy
+    volumes:
+      - interview_milvus_data:/var/lib/milvus
+      # user.yaml forces path-style S3 access; the network alias avoids underscore hostnames for MinIO.
+      - ./deploy/milvus/user.yaml:/milvus/configs/user.yaml:ro
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:9091/healthz || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 30       # 窗口: 30s + 10s×30 = 330s，根因修复后此时间绰绰有余
+      start_period: 30s
+
+  # ---------------------------------------------------------------------------
+  # 应用层
+  # ---------------------------------------------------------------------------
+
+  # Backend - FastAPI 后端服务
+  # 连接: interview_mysql:3306, interview_redis:6379, interview_milvus:19530
+  interview_backend:
+    container_name: interview_backend
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+      args:
+        PYTHON_BASE_IMAGE: "${PYTHON_BASE_IMAGE:-python:3.12-slim}"
+    restart: unless-stopped
+    networks:
+      - interview_network
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: "mysql+pymysql://root:123456@interview_mysql:3306/interview?charset=utf8mb4"
+      MYSQL_HOST: interview_mysql
+      REDIS_URL: "redis://interview_redis:6379/0"
+      MILVUS_URI: "http://interview_milvus:19530"
+    depends_on:
+      interview_mysql:
+        condition: service_healthy
+      interview_redis:
+        condition: service_healthy
+      interview_milvus:
+        condition: service_healthy
+    volumes:
+      - ./data:/app/data
+      - ./var:/app/var
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/')\" || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 8
+      start_period: 30s
+
+  # Frontend - Vue3 + Vite 前端服务
+  interview_frontend:
+    container_name: interview_frontend
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+      args:
+        NODE_BASE_IMAGE: "${NODE_BASE_IMAGE:-node:24-alpine}"
+    restart: unless-stopped
+    networks:
+      - interview_network
+    environment:
+      VITE_API_BASE_URL: /api/v1
+    depends_on:
+      interview_backend:
+        condition: service_started
+    healthcheck:
+      test: ["CMD-SHELL", "wget --spider -q http://127.0.0.1:4173 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  # ---------------------------------------------------------------------------
+  # 网关层
+  # ---------------------------------------------------------------------------
+
+  # Nginx - 反向代理网关（唯一暴露宿主机端口的服务）
+  # 路由: /api/* → backend, /uploads/* → backend, /* → frontend
+  interview_nginx:
+    container_name: interview_nginx
+    image: "${NGINX_IMAGE:-nginx:1.27-alpine}"
+    restart: unless-stopped
+    networks:
+      - interview_network
+    ports:
+      - "80:80"
+    depends_on:
+      interview_frontend:
+        condition: service_healthy
+      interview_backend:
+        condition: service_healthy
+    volumes:
+      - ./deploy/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    healthcheck:
+      test: ["CMD-SHELL", "wget --spider -q http://127.0.0.1:80 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+# =============================================================================
+# 网络定义
+# =============================================================================
+networks:
+  interview_network:
+    name: interview_network
+    driver: bridge
+
+# =============================================================================
+# 持久化卷定义
+# =============================================================================
+volumes:
+  interview_mysql_data:
+    name: interview_mysql_data
+  interview_redis_data:
+    name: interview_redis_data
+  interview_etcd_data:
+    name: interview_etcd_data
+  interview_minio_data:
+    name: interview_minio_data
+  interview_milvus_data:
+    name: interview_milvus_data

@@ -1,0 +1,9 @@
+{
+  "user_id": "user_009",
+  "role_code": "web_frontend",
+  "recent_weaknesses": [
+    "稳定性意识不足",
+    "数据建模表达不清",
+    "状态流描述混乱"
+  ]
+}

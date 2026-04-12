@@ -1,0 +1,9 @@
+{
+  "user_id": "user_006",
+  "role_code": "cpp_backend",
+  "attempt_no": 2,
+  "question_ref": "q_cpp_backend_foundation_002",
+  "score": 66,
+  "weakness_tag": "缺少监控与验证闭环",
+  "created_at": "2026-04-02"
+}

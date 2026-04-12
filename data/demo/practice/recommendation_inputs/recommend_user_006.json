@@ -1,0 +1,9 @@
+{
+  "user_id": "user_006",
+  "role_code": "cpp_backend",
+  "recent_weaknesses": [
+    "边界条件意识弱",
+    "缺少降级与兜底意识",
+    "缺少监控与验证闭环"
+  ]
+}

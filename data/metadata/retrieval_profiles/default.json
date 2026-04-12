@@ -1,0 +1,67 @@
+{
+  "default": {
+    "top_k": 6,
+    "allowed_doc_types": [
+      "question",
+      "knowledge",
+      "competency",
+      "scoring"
+    ],
+    "question_filters": [
+      "role_code",
+      "category",
+      "difficulty"
+    ],
+    "resume_filters": [
+      "role_code",
+      "case_type"
+    ],
+    "growth_filters": [
+      "role_code",
+      "weakness_type"
+    ]
+  },
+  "question_generation": {
+    "top_k": 6,
+    "search_multiplier": 8,
+    "lexical_candidate_limit": 24,
+    "allowed_doc_types": [
+      "question",
+      "knowledge",
+      "competency"
+    ],
+    "doc_type_boost": {
+      "question": 3,
+      "knowledge": 2,
+      "competency": 1
+    }
+  },
+  "answer_analysis": {
+    "top_k": 6,
+    "search_multiplier": 4,
+    "lexical_candidate_limit": 12,
+    "allowed_doc_types": [
+      "knowledge",
+      "competency"
+    ],
+    "doc_type_boost": {
+      "knowledge": 3,
+      "competency": 2
+    }
+  },
+  "answer_scoring": {
+    "top_k": 6,
+    "search_multiplier": 4,
+    "lexical_candidate_limit": 12,
+    "allowed_doc_types": [
+      "knowledge",
+      "competency",
+      "scoring"
+    ],
+    "doc_type_boost": {
+      "scoring": 3,
+      "competency": 2,
+      "knowledge": 1
+    }
+  }
+}

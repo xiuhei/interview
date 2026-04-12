@@ -1,0 +1,12 @@
+{
+  "user_id": "user_008",
+  "role_code": "cpp_backend",
+  "version": 1,
+  "highlights": [
+    "增加了职责边界说明",
+    "增加了结果指标"
+  ],
+  "risk_points": [
+    "没有说明验证方式"
+  ]
+}

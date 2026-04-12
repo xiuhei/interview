@@ -1,0 +1,22 @@
+job_name: C++后端开发
+competencies:
+  - name: C++语言特性
+    weight: 0.2
+    key_topics: [智能指针, RAII, 模板, STL, 移动语义]
+  - name: 系统编程
+    weight: 0.2
+    key_topics: [进程线程, 锁, 并发, 内存管理]
+  - name: 网络编程
+    weight: 0.15
+    key_topics: [TCP, HTTP, IO模型, epoll]
+  - name: 中间件
+    weight: 0.15
+    key_topics: [缓存, 消息队列, 数据库]
+  - name: 工程能力
+    weight: 0.15
+    key_topics: [性能优化, 故障排查, 调试工具]
+  - name: 项目真实性
+    weight: 0.15
+    key_topics: [项目背景, 个人职责, 量化结果]
+max_rounds: 10
+min_coverage: 0.8

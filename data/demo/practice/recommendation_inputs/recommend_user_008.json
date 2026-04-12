@@ -1,0 +1,9 @@
+{
+  "user_id": "user_008",
+  "role_code": "cpp_backend",
+  "recent_weaknesses": [
+    "缺少监控与验证闭环",
+    "稳定性意识不足",
+    "数据建模表达不清"
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "id",
+    "doc_type",
+    "role",
+    "title",
+    "tags",
+    "applicable_features",
+    "sections",
+    "level",
+    "case_type"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "doc_type": {
+      "const": "resume"
+    },
+    "role": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "applicable_features": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "sections": {
+      "type": "object",
+      "minProperties": 3
+    },
+    "level": {
+      "type": "string",
+      "minLength": 1
+    },
+    "case_type": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

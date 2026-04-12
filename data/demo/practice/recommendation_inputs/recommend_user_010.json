@@ -1,0 +1,9 @@
+{
+  "user_id": "user_010",
+  "role_code": "cpp_backend",
+  "recent_weaknesses": [
+    "数据建模表达不清",
+    "状态流描述混乱",
+    "扩展性思考不足"
+  ]
+}

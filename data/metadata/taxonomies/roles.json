@@ -1,0 +1,28 @@
+{
+  "roles": [
+    {
+      "code": "cpp_backend",
+      "name": "C++ 后端",
+      "competencies": {
+        "cpp_language": "C++ 语言基础",
+        "os_network": "操作系统与网络",
+        "algorithm": "算法与数据结构",
+        "system_design": "系统设计",
+        "performance": "性能优化与排障",
+        "project_depth": "项目深度与可信度"
+      }
+    },
+    {
+      "code": "web_frontend",
+      "name": "Web 前端",
+      "competencies": {
+        "frontend_foundation": "前端基础",
+        "vue_engineering": "Vue 工程化",
+        "browser_principle": "浏览器原理",
+        "network_performance": "网络与性能优化",
+        "architecture": "前端架构设计",
+        "project_depth": "项目深度与可信度"
+      }
+    }
+  ]
+}

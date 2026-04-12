@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "id",
+    "doc_type",
+    "role",
+    "title",
+    "tags",
+    "applicable_features",
+    "sections",
+    "category",
+    "subcategory",
+    "question_type",
+    "difficulty",
+    "source_priority"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "doc_type": {
+      "const": "question"
+    },
+    "role": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "applicable_features": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "sections": {
+      "type": "object",
+      "required": [
+        "question",
+        "reference_answer",
+        "key_points",
+        "common_mistakes",
+        "scoring_rubric",
+        "follow_up_questions"
+      ],
+      "properties": {
+        "question": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reference_answer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "key_points": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "common_mistakes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "scoring_rubric": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "follow_up_questions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "category": {
+      "type": "string",
+      "minLength": 1
+    },
+    "subcategory": {
+      "type": "string",
+      "minLength": 1
+    },
+    "question_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "difficulty": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_priority": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "dataset": "demo_rag_v2",
+  "source_root": "data/content_source",
+  "output_root": "data/runtime_corpus",
+  "record_count": 1623,
+  "roles": {
+    "cpp_backend": 813,
+    "web_frontend": 792,
+    "common": 18
+  },
+  "doc_types": {
+    "competency": 88,
+    "knowledge": 337,
+    "growth": 300,
+    "question": 560,
+    "resume": 320,
+    "scoring": 18
+  },
+  "generated_at": "2026-04-11T16:32:21.638790+00:00",
+  "source_note": "data/runtime_corpus/records.jsonl is the canonical runtime corpus; edit data/content_source/ and rerun scripts/build_runtime_corpus.py."
+}

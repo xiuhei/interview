@@ -1,0 +1,9 @@
+{
+  "user_id": "user_005",
+  "role_code": "web_frontend",
+  "attempt_no": 1,
+  "question_ref": "q_web_frontend_foundation_001",
+  "score": 64,
+  "weakness_tag": "边界条件意识弱",
+  "created_at": "2026-04-03"
+}

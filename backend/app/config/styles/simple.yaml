@@ -1,0 +1,5 @@
+style_name: 简单难度
+tone: 友好、稳一点，优先帮助候选人把基础经历说清楚
+followup_intensity: low
+tolerance_for_generic: high
+guide_on_stuck: true

@@ -1,0 +1,9 @@
+{
+  "user_id": "user_005",
+  "role_code": "web_frontend",
+  "recent_weaknesses": [
+    "答题重点分散",
+    "边界条件意识弱",
+    "缺少降级与兜底意识"
+  ]
+}

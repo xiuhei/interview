@@ -1,0 +1,117 @@
+[
+  {
+    "email": "admin@example.com",
+    "username": "admin",
+    "full_name": "演示管理员",
+    "password": "Admin123!",
+    "role": "admin"
+  },
+  {
+    "email": "demo@example.com",
+    "username": "demo",
+    "full_name": "演示用户",
+    "password": "Demo123!",
+    "role": "user",
+    "preferred_role": "web_frontend",
+    "target_level": "junior_to_mid"
+  },
+  {
+    "email": "user02@example.com",
+    "username": "user02",
+    "full_name": "林然",
+    "password": "Demo02Pass!",
+    "role": "user",
+    "preferred_role": "cpp_backend",
+    "target_level": "junior_to_mid"
+  },
+  {
+    "email": "user03@example.com",
+    "username": "user03",
+    "full_name": "周越",
+    "password": "Demo03Pass!",
+    "role": "user",
+    "preferred_role": "web_frontend",
+    "target_level": "junior_to_mid"
+  },
+  {
+    "email": "user04@example.com",
+    "username": "user04",
+    "full_name": "陈舟",
+    "password": "Demo04Pass!",
+    "role": "user",
+    "preferred_role": "cpp_backend",
+    "target_level": "junior_to_mid"
+  },
+  {
+    "email": "user05@example.com",
+    "username": "user05",
+    "full_name": "宋闻",
+    "password": "Demo05Pass!",
+    "role": "user",
+    "preferred_role": "web_frontend",
+    "target_level": "junior_to_mid"
+  },
+  {
+    "email": "user06@example.com",
+    "username": "user06",
+    "full_name": "唐语",
+    "password": "Demo06Pass!",
+    "role": "user",
+    "preferred_role": "cpp_backend",
+    "target_level": "junior_to_mid"
+  },
+  {
+    "email": "user07@example.com",
+    "username": "user07",
+    "full_name": "顾淮",
+    "password": "Demo07Pass!",
+    "role": "user",
+    "preferred_role": "web_frontend",
+    "target_level": "junior_to_mid"
+  },
+  {
+    "email": "user08@example.com",
+    "username": "user08",
+    "full_name": "陆翎",
+    "password": "Demo08Pass!",
+    "role": "user",
+    "preferred_role": "cpp_backend",
+    "target_level": "junior_to_mid"
+  },
+  {
+    "email": "user09@example.com",
+    "username": "user09",
+    "full_name": "夏弥",
+    "password": "Demo09Pass!",
+    "role": "user",
+    "preferred_role": "web_frontend",
+    "target_level": "junior_to_mid"
+  },
+  {
+    "email": "user10@example.com",
+    "username": "user10",
+    "full_name": "蒋衡",
+    "password": "Demo10Pass!",
+    "role": "user",
+    "preferred_role": "cpp_backend",
+    "target_level": "junior_to_mid"
+  },
+  {
+    "email": "user11@example.com",
+    "username": "user11",
+    "full_name": "许知",
+    "password": "Demo11Pass!",
+    "role": "user",
+    "preferred_role": "web_frontend",
+    "target_level": "junior_to_mid"
+  },
+  {
+    "email": "user12@example.com",
+    "username": "user12",
+    "full_name": "白屿",
+    "password": "Demo12Pass!",
+    "role": "user",
+    "preferred_role": "cpp_backend",
+    "target_level": "junior_to_mid"
+  }
+]

@@ -1,0 +1,5 @@
+style_name: 中等难度
+tone: 专业直接，问题简短，少说废话
+followup_intensity: medium
+tolerance_for_generic: medium
+guide_on_stuck: false

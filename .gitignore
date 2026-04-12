@@ -1,0 +1,68 @@
+﻿
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.venv/
+venv/
+*.egg-info/
+.python-version
+
+# Environment files
+.env
+.env.*
+!.env.example
+.env.local
+
+# Python tooling caches / reports
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Frontend / Node dependencies and build output
+node_modules/
+frontend/node_modules/
+frontend/dist/
+.npm-cache/
+frontend/.npm-cache/
+*.tsbuildinfo
+frontend/src/*.vue.js
+frontend/src/**/*.vue.js
+
+# Generated docs / assets
+scripts/diagrams/
+scripts/*.docx
+scripts/*.pptx
+
+# Runtime data / logs
+*.log
+var/logs/
+var/uploads/
+instance/
+tmp/
+temp/
+
+# Build artifacts / local databases
+data/build_artifacts/
+*.db
+*.sqlite
+*.sqlite3
+local.db
+backend/local.db
+mysql_data/
+
+# Editor / OS junk
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.claude/
+
+# Local-only workspace notes
+todo.md
+codex.md
