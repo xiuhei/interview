@@ -13,14 +13,14 @@ export function useGrowthCharts() {
       xAxis: {
         type: "category",
         data: insight.trends.map((item) => item.date),
-        axisLine: { lineStyle: { color: "rgba(106, 93, 82, 0.35)" } },
+        axisLine: { lineStyle: { color: "rgba(91, 107, 123, 0.35)" } },
       },
       yAxis: {
         type: "value",
         min: 0,
         max: 100,
         axisLine: { show: false },
-        splitLine: { lineStyle: { color: "rgba(106, 93, 82, 0.12)" } },
+        splitLine: { lineStyle: { color: "rgba(91, 107, 123, 0.12)" } },
       },
       series: [
         {
@@ -28,12 +28,12 @@ export function useGrowthCharts() {
           smooth: true,
           data: insight.trends.map((item) => item.total_score),
           symbolSize: 9,
-          lineStyle: { width: 3, color: "#0f766e" },
-          itemStyle: { color: "#c96f3d" },
+          lineStyle: { width: 3, color: "#5AA9FF" },
+          itemStyle: { color: "#7BB8F7" },
           areaStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              { offset: 0, color: "rgba(15,118,110,0.22)" },
-              { offset: 1, color: "rgba(15,118,110,0.02)" },
+              { offset: 0, color: "rgba(90,169,255,0.18)" },
+              { offset: 1, color: "rgba(90,169,255,0.02)" },
             ]),
           },
         },
@@ -53,7 +53,7 @@ export function useGrowthCharts() {
         type: "value",
         min: 0,
         max: 100,
-        splitLine: { lineStyle: { color: "rgba(106, 93, 82, 0.12)" } },
+        splitLine: { lineStyle: { color: "rgba(91, 107, 123, 0.12)" } },
       },
       yAxis: {
         type: "category",
@@ -68,8 +68,8 @@ export function useGrowthCharts() {
           itemStyle: {
             borderRadius: [0, 999, 999, 0],
             color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [
-              { offset: 0, color: "#c96f3d" },
-              { offset: 1, color: "#0f766e" },
+              { offset: 0, color: "#7BB8F7" },
+              { offset: 1, color: "#5AA9FF" },
             ]),
           },
         },

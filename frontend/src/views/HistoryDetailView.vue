@@ -375,7 +375,7 @@ onBeforeUnmount(() => {
 .question-card,
 .score-card {
   border-radius: 20px;
-  border: 1px solid rgba(55, 42, 29, 0.08);
+  border: 1px solid rgba(30, 60, 110, 0.08);
   background: rgba(255, 255, 255, 0.56);
 }
 
@@ -403,7 +403,7 @@ onBeforeUnmount(() => {
   min-width: 72px;
   padding: 10px 12px;
   border-radius: 999px;
-  background: rgba(15, 118, 110, 0.12);
+  background: rgba(90, 169, 255, 0.10);
   color: var(--primary);
   text-align: center;
   font-weight: 700;
@@ -414,8 +414,8 @@ onBeforeUnmount(() => {
   align-items: center;
   padding: 6px 10px;
   border-radius: 999px;
-  background: rgba(245, 158, 11, 0.12);
-  color: #b45309;
+  background: rgba(90, 169, 255, 0.10);
+  color: var(--primary-deep);
   font-size: 12px;
   font-weight: 600;
 }
@@ -424,15 +424,15 @@ onBeforeUnmount(() => {
   margin-top: 14px;
   padding: 16px 18px;
   border-radius: 18px;
-  border: 1px solid rgba(55, 42, 29, 0.08);
+  border: 1px solid rgba(30, 60, 110, 0.08);
 }
 
 .prompt-block {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(255, 255, 255, 0.92));
+  background: linear-gradient(135deg, rgba(90, 169, 255, 0.06), rgba(255, 255, 255, 0.92));
 }
 
 .answer-block {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(255, 255, 255, 0.94));
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.06), rgba(255, 255, 255, 0.94));
 }
 
 .transcript-block,
@@ -441,8 +441,8 @@ onBeforeUnmount(() => {
 }
 
 .feedback-block {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(255, 251, 235, 0.96));
-  border-color: rgba(245, 158, 11, 0.18);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(255, 251, 235, 0.96));
+  border-color: rgba(245, 158, 11, 0.14);
 }
 
 .block-label {
@@ -478,7 +478,7 @@ onBeforeUnmount(() => {
 
 .analysis-pending,
 .pending-inline {
-  background: rgba(15, 118, 110, 0.06);
+  background: rgba(90, 169, 255, 0.06);
 }
 
 .audio-metrics {
@@ -491,7 +491,7 @@ onBeforeUnmount(() => {
 .metric-chip {
   padding: 12px;
   border-radius: 14px;
-  background: rgba(15, 118, 110, 0.08);
+  background: rgba(90, 169, 255, 0.08);
 }
 
 .metric-chip span,

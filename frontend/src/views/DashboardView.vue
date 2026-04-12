@@ -148,8 +148,8 @@ onMounted(async () => {
 
 .hero {
   background:
-    radial-gradient(circle at top right, rgba(15, 118, 110, 0.1), transparent 24%),
-    linear-gradient(135deg, rgba(255, 252, 248, 0.96), rgba(243, 236, 226, 0.76));
+    radial-gradient(circle at top right, rgba(90, 169, 255, 0.08), transparent 24%),
+    linear-gradient(135deg, rgba(248, 252, 255, 0.96), rgba(235, 244, 255, 0.76));
 }
 
 .hero-copy {
@@ -174,14 +174,11 @@ onMounted(async () => {
   padding: 8px 12px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(64, 46, 30, 0.08);
+  border: 1px solid rgba(30, 60, 110, 0.08);
   color: var(--muted-strong);
   font-size: 13px;
   font-weight: 600;
-}
-
-.focus-chip {
-  background: rgba(15, 118, 110, 0.08);
+  background: rgba(90, 169, 255, 0.08);
   color: var(--primary);
 }
 
@@ -210,7 +207,7 @@ onMounted(async () => {
   padding: 8px 14px 0;
   border-radius: 22px;
   background: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(64, 46, 30, 0.08);
+  border: 1px solid rgba(30, 60, 110, 0.08);
 }
 
 .focus-card {
@@ -234,11 +231,11 @@ onMounted(async () => {
   padding: 16px;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(64, 46, 30, 0.08);
+  border: 1px solid rgba(30, 60, 110, 0.08);
 }
 
 .focus-stat.warm {
-  background: linear-gradient(135deg, rgba(201, 111, 61, 0.12), rgba(255, 255, 255, 0.8));
+  background: linear-gradient(135deg, rgba(90, 169, 255, 0.10), rgba(255, 255, 255, 0.8));
 }
 
 .focus-stat strong {

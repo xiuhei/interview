@@ -193,7 +193,7 @@ onBeforeUnmount(() => {
 }
 
 .analysis-pending {
-  background: rgba(15, 118, 110, 0.06);
+  background: rgba(90, 169, 255, 0.06);
 }
 
 .muted {

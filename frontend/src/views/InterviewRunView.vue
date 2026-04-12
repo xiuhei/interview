@@ -585,15 +585,15 @@ async function handleFinish() {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at 30% 30%, rgba(15, 118, 110, 0.2), rgba(201, 111, 61, 0.1));
-  box-shadow: inset 0 0 0 1px rgba(15, 118, 110, 0.18);
+  background: radial-gradient(circle at 30% 30%, rgba(90, 169, 255, 0.18), rgba(123, 184, 247, 0.10));
+  box-shadow: inset 0 0 0 1px rgba(90, 169, 255, 0.18);
 }
 
 .orb-core {
   width: 54px;
   height: 54px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #0f766e, #c96f3d);
+  background: linear-gradient(135deg, #5AA9FF, #7BB8F7);
 }
 
 .immersive-orb.speaking {
@@ -627,8 +627,8 @@ async function handleFinish() {
 }
 
 @keyframes orb-pulse {
-  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(15, 118, 110, 0.12); }
-  50% { transform: scale(1.05); box-shadow: 0 0 0 18px rgba(15, 118, 110, 0.04); }
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(90, 169, 255, 0.10); }
+  50% { transform: scale(1.05); box-shadow: 0 0 0 18px rgba(90, 169, 255, 0.04); }
 }
 
 @keyframes orb-breathe {
@@ -779,7 +779,7 @@ async function handleFinish() {
   flex-shrink: 0;
   border-top: 1px solid var(--border);
   padding: 12px 16px;
-  background: var(--surface-strong, #fff9f2);
+  background: var(--surface-strong, #F5F9FF);
 }
 
 .text-input-bar {
@@ -884,7 +884,7 @@ async function handleFinish() {
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: 0 4px 16px rgba(15, 118, 110, 0.25);
+  box-shadow: 0 4px 16px rgba(90, 169, 255, 0.25);
 }
 
 .mic-main-btn.recording {

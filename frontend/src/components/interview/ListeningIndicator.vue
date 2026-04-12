@@ -35,7 +35,7 @@ defineProps<{
 .ring {
   position: absolute;
   border-radius: 50%;
-  border: 2px solid var(--color-primary, #0f766e);
+  border: 2px solid var(--color-primary, #5AA9FF);
   opacity: 0.3;
 }
 
@@ -58,7 +58,7 @@ defineProps<{
 }
 
 .mic-icon {
-  color: var(--color-primary, #0f766e);
+  color: var(--color-primary, #5AA9FF);
   z-index: 1;
 }
 

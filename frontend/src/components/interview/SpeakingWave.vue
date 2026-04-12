@@ -27,7 +27,7 @@ defineProps<{
   width: 4px;
   height: 8px;
   border-radius: 2px;
-  background: var(--color-primary, #0f766e);
+  background: var(--color-primary, #5AA9FF);
   transition: height 0.2s ease;
 }
 

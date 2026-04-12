@@ -142,7 +142,7 @@ onBeforeUnmount(destroyCharts);
 .empty-card,
 .chart-card {
   border-radius: 20px;
-  border: 1px solid rgba(64, 46, 30, 0.1);
+  border: 1px solid rgba(30, 60, 110, 0.08);
   background: rgba(255, 255, 255, 0.64);
 }
 
@@ -203,7 +203,7 @@ onBeforeUnmount(destroyCharts);
 .status-pill {
   padding: 10px 14px;
   border-radius: 999px;
-  background: rgba(15, 118, 110, 0.12);
+  background: rgba(90, 169, 255, 0.10);
   color: var(--primary);
   font-weight: 600;
   white-space: nowrap;

@@ -483,14 +483,14 @@ async function resolveExistingInterview(existing: ActiveInterview) {
   justify-content: center;
   padding: 8px 12px;
   border-radius: 999px;
-  background: rgba(15, 118, 110, 0.08);
+  background: rgba(90, 169, 255, 0.08);
   color: var(--primary);
   font-size: 13px;
   font-weight: 600;
 }
 
 .summary-badge.warm {
-  background: rgba(201, 111, 61, 0.12);
+  background: rgba(123, 184, 247, 0.12);
   color: var(--accent);
 }
 
@@ -498,8 +498,8 @@ async function resolveExistingInterview(existing: ActiveInterview) {
   margin: 20px 0 6px;
   padding: 18px 20px;
   border-radius: 22px;
-  border: 1px solid rgba(201, 111, 61, 0.2);
-  background: linear-gradient(135deg, rgba(245, 216, 194, 0.58), rgba(255, 255, 255, 0.76));
+  border: 1px solid rgba(90, 169, 255, 0.20);
+  background: linear-gradient(135deg, rgba(224, 238, 255, 0.58), rgba(255, 255, 255, 0.76));
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -529,7 +529,7 @@ async function resolveExistingInterview(existing: ActiveInterview) {
   gap: 16px;
   padding: 22px;
   border-radius: 22px;
-  border: 1px solid rgba(64, 46, 30, 0.1);
+  border: 1px solid rgba(30, 60, 110, 0.10);
   background: rgba(255, 255, 255, 0.62);
   cursor: pointer;
   transition:
@@ -541,13 +541,13 @@ async function resolveExistingInterview(existing: ActiveInterview) {
 
 .mode-card:hover {
   transform: translateY(-2px);
-  border-color: rgba(15, 118, 110, 0.18);
+  border-color: rgba(90, 169, 255, 0.18);
   box-shadow: var(--shadow-soft);
 }
 
 .mode-card.selected {
-  border-color: rgba(15, 118, 110, 0.24);
-  background: linear-gradient(135deg, rgba(15, 118, 110, 0.1), rgba(255, 255, 255, 0.82));
+  border-color: rgba(90, 169, 255, 0.24);
+  background: linear-gradient(135deg, rgba(90, 169, 255, 0.08), rgba(255, 255, 255, 0.82));
 }
 
 .mode-card.disabled {
@@ -567,8 +567,8 @@ async function resolveExistingInterview(existing: ActiveInterview) {
 }
 
 .mode-icon.accent {
-  background: rgba(201, 111, 61, 0.14);
-  color: var(--accent);
+  background: rgba(90, 169, 255, 0.10);
+  color: var(--primary);
 }
 
 .mode-info h3 {
@@ -618,7 +618,7 @@ async function resolveExistingInterview(existing: ActiveInterview) {
 }
 
 .difficulty-card {
-  border: 1px solid rgba(64, 46, 30, 0.12);
+  border: 1px solid rgba(30, 60, 110, 0.10);
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.78);
   padding: 14px 16px;
@@ -645,12 +645,12 @@ async function resolveExistingInterview(existing: ActiveInterview) {
 
 .difficulty-card:hover {
   transform: translateY(-1px);
-  border-color: rgba(15, 118, 110, 0.18);
+  border-color: rgba(90, 169, 255, 0.18);
 }
 
 .difficulty-card.selected {
-  border-color: rgba(15, 118, 110, 0.28);
-  background: linear-gradient(135deg, rgba(15, 118, 110, 0.12), rgba(255, 255, 255, 0.88));
+  border-color: rgba(90, 169, 255, 0.28);
+  background: linear-gradient(135deg, rgba(90, 169, 255, 0.10), rgba(255, 255, 255, 0.88));
   box-shadow: var(--shadow-soft);
 }
 
@@ -683,7 +683,7 @@ async function resolveExistingInterview(existing: ActiveInterview) {
 
 .resume-summary-card,
 .resume-selection-note {
-  border: 1px solid rgba(64, 46, 30, 0.08);
+  border: 1px solid rgba(30, 60, 110, 0.08);
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.8);
 }
@@ -703,7 +703,7 @@ async function resolveExistingInterview(existing: ActiveInterview) {
   min-width: 96px;
   padding: 8px 12px;
   border-radius: 999px;
-  background: rgba(15, 118, 110, 0.1);
+  background: rgba(90, 169, 255, 0.10);
   color: var(--primary);
   font-weight: 700;
 }

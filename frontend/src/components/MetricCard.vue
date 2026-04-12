@@ -18,7 +18,7 @@ defineProps<{
 .metric-card {
   padding: 20px;
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.86), rgba(245, 239, 230, 0.66));
+    linear-gradient(135deg, rgba(255, 255, 255, 0.86), rgba(240, 247, 255, 0.66));
 }
 
 .label {

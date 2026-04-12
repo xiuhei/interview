@@ -106,7 +106,7 @@ function logout() {
   border-radius: 0 28px 28px 0;
   border-right: 1px solid var(--border);
   background:
-    linear-gradient(180deg, rgba(255, 251, 246, 0.95), rgba(249, 242, 232, 0.82)),
+    linear-gradient(180deg, rgba(245, 250, 255, 0.95), rgba(235, 244, 255, 0.82)),
     rgba(255, 255, 255, 0.62);
 }
 
@@ -122,7 +122,7 @@ function logout() {
   padding: 16px;
   border-radius: 24px;
   background: rgba(255, 255, 255, 0.52);
-  border: 1px solid rgba(64, 46, 30, 0.08);
+  border: 1px solid rgba(30, 60, 110, 0.08);
 }
 
 .brand-mark {
@@ -132,11 +132,11 @@ function logout() {
   align-items: center;
   justify-content: center;
   border-radius: 16px;
-  background: linear-gradient(135deg, var(--primary), #38a89c);
+  background: linear-gradient(135deg, var(--primary), #7BB8F7);
   color: #fff;
   font-weight: 800;
   letter-spacing: 0.06em;
-  box-shadow: 0 14px 24px rgba(15, 118, 110, 0.18);
+  box-shadow: 0 14px 24px rgba(90, 169, 255, 0.20);
 }
 
 .brand-copy h1 {
@@ -174,13 +174,13 @@ function logout() {
 
 .menu :deep(.el-menu-item:hover) {
   background: rgba(255, 255, 255, 0.72);
-  border-color: rgba(64, 46, 30, 0.08);
+  border-color: rgba(30, 60, 110, 0.08);
   transform: translateX(2px);
 }
 
 .menu :deep(.el-menu-item.is-active) {
-  background: linear-gradient(135deg, rgba(15, 118, 110, 0.12), rgba(255, 255, 255, 0.8));
-  border-color: rgba(15, 118, 110, 0.14);
+  background: linear-gradient(135deg, rgba(90, 169, 255, 0.10), rgba(255, 255, 255, 0.8));
+  border-color: rgba(90, 169, 255, 0.14);
 }
 
 .menu :deep(.el-menu-item.is-active .menu-label strong) {
@@ -200,7 +200,7 @@ function logout() {
   padding: 14px;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.56);
-  border: 1px solid rgba(64, 46, 30, 0.08);
+  border: 1px solid rgba(30, 60, 110, 0.08);
 }
 
 .profile-avatar {
@@ -210,8 +210,8 @@ function logout() {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(201, 111, 61, 0.14);
-  color: var(--accent);
+  background: rgba(90, 169, 255, 0.12);
+  color: var(--primary);
   font-weight: 800;
 }
 

@@ -56,7 +56,7 @@ const stateLabels: Record<string, string> = {
 .job-tag,
 .round-tag {
   font-size: 13px;
-  color: var(--color-muted, #6a5d52);
+  color: var(--color-muted, #5B6B7B);
   background: rgba(0, 0, 0, 0.04);
   padding: 4px 12px;
   border-radius: 12px;
@@ -65,26 +65,26 @@ const stateLabels: Record<string, string> = {
 .status-text {
   font-size: 18px;
   font-weight: 500;
-  color: var(--color-text, #1f1a17);
+  color: var(--color-text, #1F2D3D);
   transition: color 0.3s;
 }
 
 .status-text.interviewer_speaking {
-  color: var(--color-primary, #0f766e);
+  color: var(--color-primary, #5AA9FF);
 }
 
 .status-text.user_waiting,
 .status-text.user_speaking {
-  color: var(--color-accent, #c96f3d);
+  color: var(--color-accent, #7BB8F7);
 }
 
 .status-text.answer_analyzing,
 .status-text.decision_making {
-  color: var(--color-muted, #6a5d52);
+  color: var(--color-muted, #5B6B7B);
 }
 
 .status-text.finished {
-  color: var(--color-primary, #0f766e);
+  color: var(--color-primary, #5AA9FF);
 }
 
 .status-text.error {

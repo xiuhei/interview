@@ -298,7 +298,7 @@ function goToReport() {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--color-bg, #f3efe7);
+  background: var(--color-bg, #F5F9FF);
 }
 
 .room-header {
@@ -306,7 +306,7 @@ function goToReport() {
   justify-content: space-between;
   align-items: center;
   padding: 16px 24px;
-  background: var(--color-surface, rgba(255, 250, 244, 0.9));
+  background: var(--color-surface, rgba(245, 250, 255, 0.9));
   backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
@@ -320,7 +320,7 @@ function goToReport() {
 .room-title {
   font-size: 16px;
   font-weight: 600;
-  color: var(--color-text, #1f1a17);
+  color: var(--color-text, #1F2D3D);
 }
 
 .connection-dot {
@@ -339,7 +339,7 @@ function goToReport() {
   font-size: 11px;
   padding: 2px 8px;
   border-radius: 10px;
-  background: var(--color-primary, #0f766e);
+  background: var(--color-primary, #5AA9FF);
   color: #fff;
   font-weight: 500;
 }
@@ -370,7 +370,7 @@ function goToReport() {
 
 .visual-label {
   font-size: 15px;
-  color: var(--color-muted, #6a5d52);
+  color: var(--color-muted, #5B6B7B);
   margin: 0;
 }
 
@@ -389,7 +389,7 @@ function goToReport() {
   width: 48px;
   height: 48px;
   border: 3px solid rgba(0, 0, 0, 0.08);
-  border-top-color: var(--color-primary, #0f766e);
+  border-top-color: var(--color-primary, #5AA9FF);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -403,7 +403,7 @@ function goToReport() {
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background: var(--color-primary, #0f766e);
+  background: var(--color-primary, #5AA9FF);
   color: #fff;
   font-size: 32px;
   display: flex;
@@ -421,7 +421,7 @@ function goToReport() {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--color-muted, #6a5d52);
+  background: var(--color-muted, #5B6B7B);
   animation: dot-bounce 1.2s ease-in-out infinite;
 }
 
@@ -446,7 +446,7 @@ function goToReport() {
 }
 
 .mic-off {
-  color: var(--color-muted, #6a5d52);
+  color: var(--color-muted, #5B6B7B);
 }
 
 .mic-error {

@@ -577,11 +577,11 @@ async function goToHistoryTab() {
   padding: 18px;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.68);
-  border: 1px solid rgba(64, 46, 30, 0.08);
+  border: 1px solid rgba(30, 60, 110, 0.08);
 }
 
 .summary-card.warm {
-  background: linear-gradient(135deg, rgba(201, 111, 61, 0.12), rgba(255, 255, 255, 0.82));
+  background: linear-gradient(135deg, rgba(90, 169, 255, 0.10), rgba(255, 255, 255, 0.82));
 }
 
 .summary-card span {
@@ -642,9 +642,9 @@ async function goToHistoryTab() {
   gap: 16px;
   align-items: center;
   padding: 20px;
-  border: 1px dashed rgba(15, 118, 110, 0.24);
+  border: 1px dashed rgba(90, 169, 255, 0.24);
   border-radius: 22px;
-  background: linear-gradient(135deg, rgba(15, 118, 110, 0.05), rgba(255, 255, 255, 0.76));
+  background: linear-gradient(135deg, rgba(90, 169, 255, 0.05), rgba(255, 255, 255, 0.76));
   cursor: pointer;
   transition:
     transform 0.18s ease,
@@ -655,13 +655,13 @@ async function goToHistoryTab() {
 
 .upload-dropzone:hover {
   transform: translateY(-1px);
-  border-color: rgba(15, 118, 110, 0.34);
+  border-color: rgba(90, 169, 255, 0.34);
   box-shadow: var(--shadow-soft);
 }
 
 .upload-dropzone.filled {
   border-style: solid;
-  background: linear-gradient(135deg, rgba(15, 118, 110, 0.1), rgba(255, 255, 255, 0.82));
+  background: linear-gradient(135deg, rgba(90, 169, 255, 0.10), rgba(255, 255, 255, 0.82));
 }
 
 .upload-dropzone.busy {
@@ -698,7 +698,7 @@ async function goToHistoryTab() {
 .dropzone-pill {
   padding: 10px 14px;
   background: rgba(255, 255, 255, 0.78);
-  border: 1px solid rgba(64, 46, 30, 0.08);
+  border: 1px solid rgba(30, 60, 110, 0.08);
   color: var(--primary);
   white-space: nowrap;
 }
@@ -717,7 +717,7 @@ async function goToHistoryTab() {
   padding: 8px 12px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.74);
-  border: 1px solid rgba(64, 46, 30, 0.08);
+  border: 1px solid rgba(30, 60, 110, 0.08);
   color: var(--muted-strong);
   font-size: 12px;
   font-weight: 700;
@@ -731,7 +731,7 @@ async function goToHistoryTab() {
   padding: 16px 18px;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.76);
-  border: 1px solid rgba(64, 46, 30, 0.08);
+  border: 1px solid rgba(30, 60, 110, 0.08);
 }
 
 .upload-actions {
@@ -750,7 +750,7 @@ async function goToHistoryTab() {
   min-width: 102px;
   padding: 10px 16px;
   flex-direction: column;
-  background: rgba(15, 118, 110, 0.1);
+  background: rgba(90, 169, 255, 0.10);
   color: var(--primary);
 }
 
@@ -780,7 +780,7 @@ async function goToHistoryTab() {
 .detail-card,
 .history-card,
 .match-card {
-  border: 1px solid rgba(64, 46, 30, 0.08);
+  border: 1px solid rgba(30, 60, 110, 0.08);
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.82);
 }
@@ -807,8 +807,8 @@ async function goToHistoryTab() {
 
 .match-card.featured,
 .history-card.selected {
-  border-color: rgba(201, 111, 61, 0.3);
-  box-shadow: 0 0 0 1px rgba(201, 111, 61, 0.14);
+  border-color: rgba(90, 169, 255, 0.30);
+  box-shadow: 0 0 0 1px rgba(90, 169, 255, 0.14);
 }
 
 .match-summary,
@@ -826,24 +826,24 @@ async function goToHistoryTab() {
 .token {
   padding: 8px 12px;
   border-radius: 999px;
-  background: rgba(245, 246, 238, 0.95);
-  border: 1px solid rgba(64, 46, 30, 0.08);
+  background: rgba(240, 247, 255, 0.95);
+  border: 1px solid rgba(30, 60, 110, 0.08);
   line-height: 1.5;
 }
 
 .success-token {
-  background: rgba(15, 118, 110, 0.08);
+  background: rgba(90, 169, 255, 0.08);
   color: var(--primary);
 }
 
 .warning-token {
-  background: rgba(201, 111, 61, 0.12);
-  color: var(--accent);
+  background: rgba(245, 158, 11, 0.08);
+  color: #b45309;
 }
 
 .accent-token {
-  background: rgba(54, 90, 140, 0.1);
-  color: var(--info);
+  background: rgba(90, 169, 255, 0.10);
+  color: var(--primary);
 }
 
 .muted-token {
@@ -858,8 +858,8 @@ async function goToHistoryTab() {
 .history-stat {
   padding: 14px 16px;
   border-radius: 16px;
-  background: rgba(245, 246, 238, 0.88);
-  border: 1px solid rgba(201, 111, 61, 0.08);
+  background: rgba(240, 247, 255, 0.88);
+  border: 1px solid rgba(90, 169, 255, 0.08);
 }
 
 .resume-note {

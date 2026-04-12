@@ -172,11 +172,11 @@ onBeforeUnmount(() => {
   padding: 18px;
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(64, 46, 30, 0.08);
+  border: 1px solid rgba(30, 60, 110, 0.08);
 }
 
 .summary-card.warm {
-  background: linear-gradient(135deg, rgba(201, 111, 61, 0.12), rgba(255, 255, 255, 0.82));
+  background: linear-gradient(135deg, rgba(90, 169, 255, 0.10), rgba(255, 255, 255, 0.82));
 }
 
 .summary-card span {
@@ -196,7 +196,7 @@ onBeforeUnmount(() => {
   padding: 8px 14px 0;
   border-radius: 22px;
   background: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(64, 46, 30, 0.08);
+  border: 1px solid rgba(30, 60, 110, 0.08);
 }
 
 @media (max-width: 900px) {

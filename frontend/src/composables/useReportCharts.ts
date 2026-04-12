@@ -27,7 +27,7 @@ export function useReportCharts() {
       backgroundColor: "transparent",
       radar: {
         indicator: report.radar.map((item) => ({ name: competencyLabel(item.name), max: 100 })),
-        splitArea: { areaStyle: { color: ["rgba(15,118,110,0.04)", "rgba(201,111,61,0.04)"] } },
+        splitArea: { areaStyle: { color: ["rgba(90,169,255,0.04)", "rgba(123,184,247,0.03)"] } },
       },
       series: [
         {
@@ -35,9 +35,9 @@ export function useReportCharts() {
           data: [
             {
               value: report.radar.map((item) => item.value),
-              areaStyle: { color: "rgba(15,118,110,0.22)" },
-              lineStyle: { color: "#0f766e" },
-              itemStyle: { color: "#c96f3d" },
+              areaStyle: { color: "rgba(90,169,255,0.18)" },
+              lineStyle: { color: "#5AA9FF" },
+              itemStyle: { color: "#7BB8F7" },
             },
           ],
         },
@@ -61,8 +61,8 @@ export function useReportCharts() {
           data: Object.values(report.competency_scores),
           itemStyle: {
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-              { offset: 0, color: "#0f766e" },
-              { offset: 1, color: "#c96f3d" },
+              { offset: 0, color: "#5AA9FF" },
+              { offset: 1, color: "#7BB8F7" },
             ]),
           },
         },

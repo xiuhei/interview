@@ -1,23 +1,23 @@
 :root {
-  --bg: #f4efe7;
-  --bg-deep: #e8dfd1;
-  --surface: rgba(255, 250, 244, 0.84);
-  --surface-strong: rgba(255, 252, 248, 0.96);
+  --bg: #F5F9FF;
+  --bg-deep: #E8F1FC;
+  --surface: rgba(245, 250, 255, 0.84);
+  --surface-strong: rgba(248, 252, 255, 0.96);
   --surface-soft: rgba(255, 255, 255, 0.62);
-  --ink: #1f1a17;
-  --ink-soft: #2f2823;
-  --muted: #6c5d52;
-  --muted-strong: #5b4c40;
-  --primary: #0f766e;
-  --primary-deep: #0a5f58;
-  --primary-soft: #d8efe8;
-  --accent: #c96f3d;
-  --accent-soft: #f7e1d4;
-  --info: #365a8c;
-  --border: rgba(64, 46, 30, 0.12);
-  --border-strong: rgba(64, 46, 30, 0.18);
-  --shadow: 0 18px 48px rgba(64, 43, 24, 0.12);
-  --shadow-soft: 0 10px 24px rgba(64, 43, 24, 0.08);
+  --ink: #1F2D3D;
+  --ink-soft: #2A3A4D;
+  --muted: #5B6B7B;
+  --muted-strong: #4A5B6E;
+  --primary: #5AA9FF;
+  --primary-deep: #4891E0;
+  --primary-soft: #E0EEFF;
+  --accent: #7BB8F7;
+  --accent-soft: #E5F0FF;
+  --info: #4D7CC7;
+  --border: rgba(30, 60, 110, 0.10);
+  --border-strong: rgba(30, 60, 110, 0.16);
+  --shadow: 0 18px 48px rgba(30, 50, 80, 0.10);
+  --shadow-soft: 0 10px 24px rgba(30, 50, 80, 0.07);
   --radius-xl: 28px;
   --radius-lg: 22px;
   --radius-md: 18px;
@@ -35,7 +35,7 @@ html {
 }
 
 *::selection {
-  background: rgba(15, 118, 110, 0.16);
+  background: rgba(90, 169, 255, 0.16);
   color: var(--ink);
 }
 
@@ -43,10 +43,10 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    radial-gradient(circle at top left, rgba(201, 111, 61, 0.16), transparent 26%),
-    radial-gradient(circle at top right, rgba(15, 118, 110, 0.12), transparent 24%),
-    radial-gradient(circle at bottom right, rgba(54, 90, 140, 0.09), transparent 26%),
-    linear-gradient(180deg, rgba(255, 251, 246, 0.98), rgba(243, 236, 226, 0.92)),
+    radial-gradient(circle at top left, rgba(90, 169, 255, 0.10), transparent 26%),
+    radial-gradient(circle at top right, rgba(123, 184, 247, 0.08), transparent 24%),
+    radial-gradient(circle at bottom right, rgba(77, 124, 199, 0.06), transparent 26%),
+    linear-gradient(180deg, rgba(245, 250, 255, 0.98), rgba(232, 241, 252, 0.92)),
     var(--bg);
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
@@ -79,7 +79,7 @@ a {
 .panel-card {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(255, 249, 242, 0.7));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(245, 250, 255, 0.72));
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow);
@@ -102,14 +102,14 @@ a {
 
 .page-grid > .panel-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 24px 54px rgba(64, 43, 24, 0.15);
+  box-shadow: 0 24px 54px rgba(30, 50, 80, 0.12);
   border-color: var(--border-strong);
 }
 
 .eyebrow {
   margin: 0 0 10px;
   letter-spacing: 0.16em;
-  color: var(--accent);
+  color: var(--primary);
   font-size: 12px;
   font-weight: 700;
 }
@@ -137,7 +137,7 @@ p {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(64, 46, 30, 0.18);
+  background: rgba(30, 60, 110, 0.16);
   border-radius: 999px;
   border: 2px solid transparent;
   background-clip: padding-box;
@@ -169,12 +169,12 @@ p {
 }
 
 .el-button--primary {
-  box-shadow: 0 12px 22px rgba(15, 118, 110, 0.16);
+  box-shadow: 0 12px 22px rgba(90, 169, 255, 0.18);
 }
 
 .el-button--primary.is-plain {
-  background: rgba(15, 118, 110, 0.06);
-  border-color: rgba(15, 118, 110, 0.22);
+  background: rgba(90, 169, 255, 0.06);
+  border-color: rgba(90, 169, 255, 0.22);
   color: var(--primary);
 }
 
@@ -189,14 +189,14 @@ p {
   min-height: 48px;
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 0 0 1px rgba(64, 46, 30, 0.06);
+  box-shadow: 0 0 0 1px rgba(30, 60, 110, 0.06);
   transition: box-shadow 0.18s ease, transform 0.18s ease, background 0.18s ease;
 }
 
 .el-input__wrapper:hover,
 .el-select__wrapper:hover,
 .el-textarea__inner:hover {
-  box-shadow: 0 0 0 1px rgba(64, 46, 30, 0.12);
+  box-shadow: 0 0 0 1px rgba(30, 60, 110, 0.12);
 }
 
 .el-input__wrapper.is-focus,
@@ -204,8 +204,8 @@ p {
 .el-textarea__inner:focus {
   background: rgba(255, 255, 255, 0.96);
   box-shadow:
-    0 0 0 1px rgba(15, 118, 110, 0.26),
-    0 0 0 5px rgba(15, 118, 110, 0.08);
+    0 0 0 1px rgba(90, 169, 255, 0.30),
+    0 0 0 5px rgba(90, 169, 255, 0.08);
 }
 
 .el-form-item {
@@ -224,7 +224,7 @@ p {
 
 .el-radio-button__inner {
   border-radius: 999px;
-  border: 1px solid rgba(64, 46, 30, 0.12) !important;
+  border: 1px solid rgba(30, 60, 110, 0.10) !important;
   background: rgba(255, 255, 255, 0.76);
   box-shadow: none !important;
 }
@@ -237,15 +237,15 @@ p {
 .el-radio-button__original-radio:checked + .el-radio-button__inner {
   background: var(--primary);
   border-color: var(--primary) !important;
-  box-shadow: 0 10px 18px rgba(15, 118, 110, 0.18);
+  box-shadow: 0 10px 18px rgba(90, 169, 255, 0.20);
 }
 
 .el-slider__bar {
-  background: linear-gradient(90deg, var(--primary), #2ea293);
+  background: linear-gradient(90deg, var(--primary), #7BB8F7);
 }
 
 .el-slider__runway {
-  background: rgba(15, 118, 110, 0.12);
+  background: rgba(90, 169, 255, 0.12);
 }
 
 .el-slider__button {
@@ -266,7 +266,7 @@ p {
 .el-tabs__nav {
   padding: 4px;
   border-radius: 999px;
-  border: 1px solid rgba(64, 46, 30, 0.08);
+  border: 1px solid rgba(30, 60, 110, 0.06);
   background: rgba(255, 255, 255, 0.56);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
 }
@@ -300,10 +300,10 @@ p {
 }
 
 .el-table {
-  --el-table-border-color: rgba(64, 46, 30, 0.1);
-  --el-table-header-bg-color: rgba(247, 242, 235, 0.92);
-  --el-table-row-hover-bg-color: rgba(15, 118, 110, 0.04);
-  --el-table-current-row-bg-color: rgba(15, 118, 110, 0.05);
+  --el-table-border-color: rgba(30, 60, 110, 0.08);
+  --el-table-header-bg-color: rgba(232, 241, 252, 0.72);
+  --el-table-row-hover-bg-color: rgba(90, 169, 255, 0.04);
+  --el-table-current-row-bg-color: rgba(90, 169, 255, 0.06);
   --el-table-tr-bg-color: transparent;
   color: var(--ink);
 }
